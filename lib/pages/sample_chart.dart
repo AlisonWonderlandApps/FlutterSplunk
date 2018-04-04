@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:flutter_charts/flutter_charts.dart';
+import "dart:async";
+import "dart:convert";
+import "dart:core";
+import 'package:http/http.dart' as http;
 
 class AnalyticsPage extends StatefulWidget {
 
@@ -9,11 +13,33 @@ class AnalyticsPage extends StatefulWidget {
 }
 
 class _AnalyticsPageState extends State<AnalyticsPage> {
+  List data;
 
   LineChartOptions _lineChartOptions;
   ChartOptions _verticalBarChartOptions;
 
   ChartData _chartData;
+
+  Future<String> getData() async {
+    // http.Response
+    var response = await http.get(
+        Uri.encodeFull("https://api.myjson.com/bins/1dlmxv"),
+        headers: {
+          //"key": "apikey",
+          "Accept": "application.json",
+        }
+    );
+
+    print(response.body);
+
+    this.setState(() {
+      data = JSON.decode(response.body);
+    });
+
+    print(data[0]['processor']);
+    return("success");
+  }
+
 
   _AnalyticsPageState() {
 
@@ -34,9 +60,10 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
     _chartData.dataRowsLegends = [
       "Failures"];
     _chartData.dataRows = [
-      [1.0,2.0,3.0,4.0,5.0 ],
-    ];
-    _chartData.xLabels =  ["This Week", "Last Week", "-2 Weeks", "-3 Weeks", "-4 Weeks"];
+      [double.parse(data[0]['count']),double.parse(data[1]['count']),double.parse(data[2]['count']),double.parse(data[3]['count']),double.parse(data[4]['count'])
+   ], ];
+    _chartData.xLabels =  [data[0]['processor'],data[1]['processor'],data[2]['processor'],data[3]['processor'],data[4]['processor']];
+//    _chartData.xLabels =  ['hello','hello1','hello2','hello3','hello4'];
     _chartData.dataRowsColors = [Colors.amber];
     // Note: ChartOptions.useUserProvidedYLabels default is still used (false);
   }
@@ -47,6 +74,9 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
   }
 
   @override
+  void initState() {
+    this.getData();
+  }
   Widget build(BuildContext context) {
     MediaQueryData mediaQueryData = MediaQuery.of(context);
     ui.Size windowLogicalSize = mediaQueryData.size;
@@ -80,24 +110,24 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
       body: new Padding(
         padding: new EdgeInsets.all(16.0),
         child: new Center(
-        child: new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new Expanded( // expansion inside Column pulls contents |
-              child:
-              new Row(
-                // this stretch carries | expansion to <--> Expanded children
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  new Expanded(
-                    child:  verticalBarChart,
-                  ),
-                ],
-              ), //
-            ), // Column -> Expanded
-          ],
+          child: new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              new Expanded( // expansion inside Column pulls contents |
+                child:
+                new Row(
+                  // this stretch carries | expansion to <--> Expanded children
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    new Expanded(
+                      child:  verticalBarChart,
+                    ),
+                  ],
+                ), //
+              ), // Column -> Expanded
+            ],
+          ),
         ),
-      ),
       ),
     );
   }
