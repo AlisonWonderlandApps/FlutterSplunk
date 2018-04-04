@@ -1,22 +1,82 @@
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
+// import 'package:english_words/english_words.dart';
 
-class RandomWords extends StatefulWidget {
+class RandomWords extends StatelessWidget {
   @override
-  createState() => new RandomWordsState();
-}
+  //createState() => new RandomWordsState();
+  Widget listSection = new ListView(
+    children: [
+      new ListTile(
+        leading: new Icon(Icons.error),
+        title: new Text('Error Message',
+            style: new TextStyle(fontWeight: FontWeight.bold,)),
+        subtitle: new Text('Location and details here'),),
+      new ListTile(
+        leading: new Icon(Icons.notifications),
+        title: new Text('Notification',
+            style: new TextStyle(fontWeight: FontWeight.bold)),
+        subtitle: new Text('Type of notification'),),
+      new ListTile(
+        leading: new Icon(Icons.error),
+        title: new Text('Error Message',
+            style: new TextStyle(fontWeight: FontWeight.bold,)),
+        subtitle: new Text('Location and details here'),),
+      new ListTile(
+        leading: new Icon(Icons.notifications),
+        title: new Text('Notification',
+            style: new TextStyle(fontWeight: FontWeight.bold)),
+        subtitle: new Text('Type of notification'),),
+      new ListTile(
+        leading: new Icon(Icons.error),
+        title: new Text('Error Message',
+            style: new TextStyle(fontWeight: FontWeight.bold,)),
+        subtitle: new Text('Location and details here'),),
+      new ListTile(
+        leading: new Icon(Icons.notifications),
+        title: new Text('Notification',
+            style: new TextStyle(fontWeight: FontWeight.bold)),
+        subtitle: new Text('Type of notification'),),
+      new ListTile(
+        leading: new Icon(Icons.error),
+        title: new Text('Error Message',
+            style: new TextStyle(fontWeight: FontWeight.bold,)),
+        subtitle: new Text('Location and details here'),),
+      new ListTile(
+        leading: new Icon(Icons.notifications),
+        title: new Text('Notification',
+            style: new TextStyle(fontWeight: FontWeight.bold)),
+        subtitle: new Text('Type of notification'),),
+      new ListTile(
+        leading: new Icon(Icons.error),
+        title: new Text('Error Message',
+            style: new TextStyle(fontWeight: FontWeight.bold,)),
+        subtitle: new Text('Location and details here'),),
+    ],
+  );
 
+  @override
+  Widget build(BuildContext context) {
+    return listSection;
+  }
+
+}
+/*
 class RandomWordsState extends State<RandomWords> {
   static String routeName = 'notifications-page';
   //_ enforces privacy
-  final _suggestions = <WordPair>[];
-  final _saved = new Set<WordPair>();
+  final _suggestions = <ListTile>[];
+  final _saved = new Set<ListTile>();
   final _biggerFont = const TextStyle(fontSize: 18.0);
 
   @override
   Widget build(BuildContext context) {
-    return _buildSuggestions();
+    //return _buildSuggestions();
+
+    return new Container();
+
   }
+
+
 
   Widget _buildSuggestions() {
     return new ListView.builder(
@@ -97,4 +157,4 @@ class RandomWordsState extends State<RandomWords> {
       ),
     );
   }
-}
+}*/
