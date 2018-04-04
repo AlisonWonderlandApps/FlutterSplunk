@@ -16,10 +16,10 @@ class MyApp extends StatelessWidget {
     SignInPage.routeName: (context) => new SignInPage(),
     HomePage.routeName: (context) => new HomePage(),
     LandingPage.routeName: (context) => new LandingPage(),
-    NotificationsPage.routeName: (context) => new NotificationsPage(),
-    AnalyticsPage.routeName: (context) => new AnalyticsPage(),
-    HistoryPage.routeName: (context) => new HistoryPage(),
-    SettingsPage.routeName: (context) => new SettingsPage(),
+    //NotificationsPage.routeName: (context) => new NotificationsPage(),
+    //AnalyticsPage.routeName: (context) => new AnalyticsPage(),
+    //HistoryPage.routeName: (context) => new HistoryPage(),
+    //SettingsPage.routeName: (context) => new SettingsPage(),
   };
 
   // This widget is the root of your application.
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: 'Auth Pages',
       theme: new ThemeData(
-        primarySwatch: Colors.lightBlue,
+        //primarySwatch: Colors.lightBlue,
       ),
       home: new SignInPage(),
       routes: routes,
