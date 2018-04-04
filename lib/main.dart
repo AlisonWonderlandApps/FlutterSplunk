@@ -3,6 +3,8 @@ import './pages/login.dart';
 import './pages/signin_page.dart';
 import './pages/home_page.dart';
 import './pages/landing_page.dart';
+import './pages/jsonpull.dart';
+import './pages/testlist.dart';
 import './pages/notifications_page.dart';
 import './pages/analytics_page.dart';
 import './pages/history_page.dart';
@@ -28,9 +30,9 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: 'Auth Pages',
       theme: new ThemeData(
-        //primarySwatch: Colors.lightBlue,
+        primarySwatch: Colors.lightBlue,
       ),
-      home: new SignInPage(),
+      home: new DataList(),
       routes: routes,
     );
   }
