@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'notifications_page.dart';
 import 'history_page.dart';
-import 'analytics_page.dart';
+import 'sample_chart.dart';
 import 'settings_page.dart';
 import 'signin_page.dart';
 
