@@ -1,53 +1,86 @@
 import 'package:flutter/material.dart';
 // import 'package:english_words/english_words.dart';
 
+class Error {
+  final String errorType;
+  final String errorDetails;
+
+  const Error({this.errorType, this.errorDetails});
+}
+
+const errMess = const <Error>[
+  const Error(
+      errorType: 'Error Type',
+      errorDetails:'Details of error'
+  ),
+  const Error(
+      errorType: 'Error 2',
+      errorDetails:'Location'
+  )
+];
+
+
+class NoticePage extends StatefulWidget {
+  @override
+  Widget build(BuildContext context) {
+    createState() => new NoticePageState();
+  }
+}
+class NoticePageState extends State<NoticePage> {
+  final _suggestions = <NoticePage>
+};
+
+
+
+
+
 class RandomWords extends StatelessWidget {
   @override
   //createState() => new RandomWordsState();
   Widget listSection = new ListView(
     children: [
       new ListTile(
-        leading: new Icon(Icons.error),
+        leading: new Icon(Icons.check_box_outline_blank),
         title: new Text('Error Message',
             style: new TextStyle(fontWeight: FontWeight.bold,)),
         subtitle: new Text('Location and details here'),),
       new ListTile(
-        leading: new Icon(Icons.notifications),
+        leading: new Icon(Icons.check_box_outline_blank),
         title: new Text('Notification',
             style: new TextStyle(fontWeight: FontWeight.bold)),
         subtitle: new Text('Type of notification'),),
       new ListTile(
-        leading: new Icon(Icons.error),
+        leading: new Icon(Icons.check_box_outline_blank),
         title: new Text('Error Message',
             style: new TextStyle(fontWeight: FontWeight.bold,)),
         subtitle: new Text('Location and details here'),),
       new ListTile(
-        leading: new Icon(Icons.notifications),
+        leading: new Icon(Icons.check_box_outline_blank),
         title: new Text('Notification',
             style: new TextStyle(fontWeight: FontWeight.bold)),
         subtitle: new Text('Type of notification'),),
       new ListTile(
-        leading: new Icon(Icons.error),
+        leading: new Icon(Icons.check_box_outline_blank),
         title: new Text('Error Message',
             style: new TextStyle(fontWeight: FontWeight.bold,)),
         subtitle: new Text('Location and details here'),),
       new ListTile(
-        leading: new Icon(Icons.notifications),
+        leading: new Icon(Icons.check_box_outline_blank),
         title: new Text('Notification',
             style: new TextStyle(fontWeight: FontWeight.bold)),
         subtitle: new Text('Type of notification'),),
       new ListTile(
-        leading: new Icon(Icons.error),
+        leading: new Icon(Icons.check_box_outline_blank),
         title: new Text('Error Message',
             style: new TextStyle(fontWeight: FontWeight.bold,)),
         subtitle: new Text('Location and details here'),),
       new ListTile(
-        leading: new Icon(Icons.notifications),
+        leading: new Icon(Icons.check_box_outline_blank),
         title: new Text('Notification',
             style: new TextStyle(fontWeight: FontWeight.bold)),
         subtitle: new Text('Type of notification'),),
       new ListTile(
-        leading: new Icon(Icons.error),
+        leading: new Icon(Icons.check_box_outline_blank),
         title: new Text('Error Message',
             style: new TextStyle(fontWeight: FontWeight.bold,)),
         subtitle: new Text('Location and details here'),),
