@@ -34,7 +34,7 @@ class _DataListState extends State<DataList> {
     return("success");
   }
 
-  tileTapped(tile){
+  void tileTapped(tile){
     print("TILE TAPPED: ");
     print(tile);
   }
@@ -57,7 +57,7 @@ class _DataListState extends State<DataList> {
             leading: new Icon(Icons.ac_unit),
             title: new Text(data[index]['processor']),
             subtitle: new Text(data[index]['count']),
-            onTap: this.tileTapped(data[index]),
+            onTap: () {tileTapped(data[index]);}
           );
         }
       ),

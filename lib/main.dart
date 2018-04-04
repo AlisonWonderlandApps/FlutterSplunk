@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.lightBlue,
       ),
-      home: new DataList(),
+      home: new SignInPage(),
       routes: routes,
     );
   }

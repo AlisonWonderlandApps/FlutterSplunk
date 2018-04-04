@@ -33,7 +33,7 @@ class _LandingPageState extends State<LandingPage> {
   _getDrawerItemWidget(int pos) {
     switch(pos) {
       case 0:
-        return new RandomWords();
+        return new NotificationsPage();
       case 1:
         return new HistoryPage();
       case 2:

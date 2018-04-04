@@ -1,99 +1,61 @@
-import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
+import "dart:convert";
+import "dart:async";
+import "package:flutter/material.dart";
+import 'package:http/http.dart' as http;
 
-class RandomWords extends StatefulWidget {
+class NotificationsPage extends StatefulWidget {
   @override
-  createState() => new RandomWordsState();
+  createState() => new NotificationsPageState();
 }
 
-class RandomWordsState extends State<RandomWords> {
+class NotificationsPageState extends State<NotificationsPage> {
   static String routeName = 'notifications-page';
-  //_ enforces privacy
-  final _suggestions = <WordPair>[];
-  final _saved = new Set<WordPair>();
-  final _biggerFont = const TextStyle(fontSize: 18.0);
+
+  List data;
+
+  Future<String> getData() async {
+    // http.Response
+    var response = await http.get(
+        Uri.encodeFull("https://api.myjson.com/bins/1dlmxv"),
+        headers: {
+          //"key": "apikey",
+          "Accept": "application.json",
+        }
+    );
+
+    print(response.body);
+
+    this.setState(() {
+      data = JSON.decode(response.body);
+    });
+
+    print(data[0]['processor']);
+    return("success");
+  }
+
+  void tileTapped(tile){
+    print("TILE TAPPED: ");
+    print(tile);
+  }
+
+  @override
+  void initState() {
+    this.getData();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return _buildSuggestions();
-  }
-
-  Widget _buildSuggestions() {
-    return new ListView.builder(
-        padding: const EdgeInsets.all(16.0),
-        // The itemBuilder callback is called once per suggested word pairing,
-        // and places each suggestion into a ListTile row.
-        // For even rows, the function adds a ListTile row for the word pairing.
-        // For odd rows, the function adds a Divider widget to visually
-        // separate the entries. Note that the divider may be difficult
-        // to see on smaller devices.
-        itemBuilder: (context, i) {
-          // Add a one-pixel-high divider widget before each row in theListView.
-          if (i.isOdd) return new Divider();
-
-          // The syntax "i ~/ 2" divides i by 2 and returns an integer result.
-          // For example: 1, 2, 3, 4, 5 becomes 0, 1, 1, 2, 2.
-          // This calculates the actual number of word pairings in the ListView,
-          // minus the divider widgets.
-          final index = i ~/ 2;
-          // If you've reached the end of the available word pairings...
-          if (index >= _suggestions.length) {
-            // ...then generate 10 more and add them to the suggestions list.
-            _suggestions.addAll(generateWordPairs().take(10));
+    return new Scaffold(
+      body: new ListView.builder(
+          itemCount: data == null ? 0 : data.length,
+          itemBuilder: (BuildContext context, int index){
+            return new ListTile(
+                leading: new Icon(Icons.ac_unit),
+                title: new Text(data[index]['processor']),
+                subtitle: new Text(data[index]['count']),
+                onTap: () {tileTapped(data[index]);}
+            );
           }
-          return _buildRow(_suggestions[index]);
-        }
-    );
-  }
-
-  Widget _buildRow(WordPair pair) {
-    final alreadySaved = _saved.contains(pair);
-
-    return new ListTile(
-        title: new Text(
-          pair.asPascalCase,
-          style: _biggerFont,
-        ),
-        trailing: new Icon(
-          alreadySaved ? Icons.favorite : Icons.favorite_border,
-          color: alreadySaved ? Colors.red : null,
-        ),
-        onTap: () {
-          setState(() {
-            if (alreadySaved) {
-              _saved.remove(pair);
-            } else {
-              _saved.add(pair);
-            }
-          });
-        }
-    );
-  }
-
-  void _pushSaved() {
-    Navigator.of(context).push(
-      new MaterialPageRoute(
-        builder: (context) {
-          final tiles = _saved.map(
-                (pair) {
-              return new ListTile(
-                title: new Text(
-                  pair.asPascalCase,
-                  style: _biggerFont,
-                ),
-              );
-            },
-          );
-          final divided = ListTile
-              .divideTiles(
-            context: context,
-            tiles: tiles,
-          )
-              .toList();
-
-          return new ListView(children: divided);
-
-        },
       ),
     );
   }
