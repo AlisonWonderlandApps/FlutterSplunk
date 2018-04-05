@@ -63,9 +63,6 @@ class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     var drawerOptions = [];
-    print("LANDING PAGE");
-    print(globals.username);
-    print(globals.password);
 
     for (var i=0; i< widget.drawerItems.length; i++) {
       var d = widget.drawerItems[i];
@@ -94,8 +91,8 @@ class _LandingPageState extends State<LandingPage> {
           new Padding(
             padding: new EdgeInsets.only(right: 20.0),
             child: new Image.asset(
-              'assets/images/Accenture-logo.png',
-              width: 25.0,
+              'assets/images/RA-logo.png',
+              width: 35.0,
             ),
           ),
         ],

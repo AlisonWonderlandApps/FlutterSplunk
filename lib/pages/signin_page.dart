@@ -3,7 +3,6 @@ import 'dart:core';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:auth_app/globals.dart' as globals;
 
 import './signup.dart';
@@ -43,7 +42,7 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   _onLoginButtonPressed() {
-    _storeCredentials();
+
     if(username == null) {
       setState(() {
         usernameError = true;
@@ -117,22 +116,26 @@ class _SignInPageState extends State<SignInPage> {
     }
   }
 
-  _storeCredentials() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('username', username);
-    //var myname = prefs.getString('username');
-    //print(myname);
-  }
-
   @override
   Widget build(BuildContext context) {
+
+    final appName = new Padding(
+      padding: new EdgeInsets.only(bottom: 10.0),
+      child: new Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget> [
+          new Text("RAPID ANALYTICS"),
+        ],
+      ),
+    );
+
     final logo = new Hero(
       tag: 'hero',
       child: new CircleAvatar(
         backgroundColor: Colors.transparent,
-        radius: 56.0,
+        radius: 100.0,
         child: new Image.asset(
-          'assets/images/Accenture-logo.png'
+          'assets/images/RA-logo.png'
         ),
       ),
     ); //Hero
@@ -237,6 +240,7 @@ class _SignInPageState extends State<SignInPage> {
             padding: new EdgeInsets.only(left: 24.0, right: 24.0),
             children: <Widget>[
               new Padding(padding: new EdgeInsets.only(top: 60.0),),
+              //appName,
               logo,
               new SizedBox(height: 56.0),
               username,

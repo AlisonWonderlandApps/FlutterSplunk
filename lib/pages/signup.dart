@@ -17,9 +17,9 @@ class _SignUpPageState extends State<SignUpPage> {
       tag: 'hero',
       child: new CircleAvatar(
         backgroundColor: Colors.transparent,
-        radius: 56.0,
+        radius: 100.0,
         child: new Image.asset(
-            'assets/images/Accenture-logo.png'
+            'assets/images/RA-logo.png'
         ),
       ),
     ); //Hero

@@ -2,6 +2,8 @@ import "dart:convert";
 import "dart:async";
 import "package:flutter/material.dart";
 import 'package:http/http.dart' as http;
+import 'dart:io';
+import 'package:auth_app/globals.dart' as globals;
 
 class NotificationsPage extends StatefulWidget {
   @override
@@ -34,6 +36,37 @@ class NotificationsPageState extends State<NotificationsPage> {
     return("success");
   }
 
+  Future<String> getSplunkData() async {
+    var httpClient = new HttpClient();
+    var uri = new Uri.https(
+        '${globals.username}:${globals.password}@techbootcamp.aiam-dh.com', '/rest-techsyd3/services/search/jobs/export', {'username': globals.username, 'password': globals.username, 'output_mode': 'json', 'search': 'savedsearch categoryerrors'});
+    print(uri);
+    var request = await httpClient.getUrl(uri);
+    var response = await request.close();
+
+    print("RESPONSE");
+    print('*************');
+    print(response);
+
+    var responseBody = await response.transform(utf8.decoder).join();
+
+    print("RESPONSE BODY");
+    print('*************');
+    print(responseBody);
+
+    var thedata = JSON.decode(responseBody);
+    print('*************');
+    print("THEDATA");
+    print(thedata);
+
+    data = thedata['result'];
+    print('*************');
+    print("DATA");
+    print(data);
+
+    //return "Success!";
+  }
+
   void tileTapped(tile){
     print("TILE TAPPED: ");
     print(tile);
@@ -41,7 +74,8 @@ class NotificationsPageState extends State<NotificationsPage> {
 
   @override
   void initState() {
-    this.getData();
+   // this.getData();
+    this.getSplunkData();
   }
 
   @override
@@ -50,6 +84,8 @@ class NotificationsPageState extends State<NotificationsPage> {
       body: new ListView.builder(
           itemCount: data == null ? 0 : data.length,
           itemBuilder: (BuildContext context, int index){
+            print("ITEMBUILDER");
+            print(data[index]);
             return new Dismissible(
               key: new Key(data[index]['processor']),
               onDismissed: (direction) {
@@ -68,8 +104,8 @@ class NotificationsPageState extends State<NotificationsPage> {
               ),
               child: new ListTile(
                 leading: new Icon(Icons.remove_circle),
-                title: new Text(data[index]['processor']),
-                subtitle: new Text(data[index]['count']),
+                title: new Text(data[index]['description']),
+                subtitle: new Text(data[index]['site_id']),
 //                  trailing: new Icon(Icons.watch_later),
                 onTap: () {tileTapped(data[index]);},
                 onLongPress: () {print('LongPressed'); print(index);},
