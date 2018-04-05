@@ -5,49 +5,166 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final alucard = new Hero(
-        tag: 'hero',
-        child: new Padding(
-            padding: new EdgeInsets.only(top: 60.0, left: 16.0, right: 16.0, bottom: 16.0),
-            child: new CircleAvatar(
-              radius: 72.0,
-              backgroundColor: Colors.transparent,
-              backgroundImage: new AssetImage(
-                  'assets/images/avatar.jpg'
-              ),
+    Widget notificationSection = new Container(
+      padding: const EdgeInsets.only(left: 32.0, top: 15.0, bottom: 15.0, right: 32.0 ),
+      child: new Row(
+        children: [
+          new Expanded(
+            child: new Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                new Container(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: new Text(
+                    'PUSH NOTIFICATIONS',
+                    style: new TextStyle(
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          new Icon(
+            Icons.check_box,
+            color: Colors.green[500],
+          ),
+          //new Text('ON'),
+        ],
+      ),
+    );
+
+    Widget accountSection = new Container(
+      padding: const EdgeInsets.only(left: 32.0, top: 32.0, bottom: 15.0, right: 32.0),
+      child: new Row(
+        children: [
+          new Expanded(
+            child: new Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                new Container(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: new Text(
+                    'ACCOUNT SETTINGS',
+                    style: new TextStyle(
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          new Icon(
+            Icons.settings,
+            color: Colors.grey[500],
+          ),
+        ],
+      ),
+    );
+
+
+    Widget refreshSection = new Container(
+      padding: const EdgeInsets.only(left: 32.0, top: 15.0, bottom: 15.0, right: 32.0),
+      child: new Row (
+        children: <Widget>[
+          new Expanded(
+            child: new Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                new Container(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: new Text(
+                    'SPLUNK UPDATE',
+                    style: new TextStyle(
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ),
+                new Text(
+                  'Hourly',
+                  style: new TextStyle(
+                    color: Colors.grey[500],
+                  ),
+                ),
+              ],
             )
-        )
-    );
-
-    final welcome = new Padding(
-      padding: new EdgeInsets.all(8.0),
-      child: new Text(
-        'Welcome Alucard!',
-        style: new TextStyle(fontSize: 28.0, color: Colors.white),
+          ),
+          new Icon(
+            Icons.refresh,
+            color: Colors.grey[500],
+          ),
+        ],
       ),
     );
 
-    final lorem = new Padding(
-      padding: new EdgeInsets.all(8.0),
-      child: new Text(
-        'Blah blah this is some text',
-        style: new TextStyle(fontSize: 18.0, color: Colors.white),
+    Widget displaySection = new Container(
+      padding: const EdgeInsets.only(left: 32.0, top: 15.0, bottom: 15.0, right: 32.0),
+      child: new Row(
+        children: [
+          new Expanded(
+            child: new Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                new Container(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: new Text(
+                    'DISPLAY',
+                    style: new TextStyle(
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          new Icon(
+            Icons.text_fields,
+            color: Colors.grey[500],
+          ),
+        ],
       ),
     );
+
+    Widget helpSection = new Container(
+      padding: const EdgeInsets.only(left: 32.0, top: 15.0, bottom: 32.0, right: 32.0),
+      child: new Row(
+        children: [
+          new Expanded(
+            child: new Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                new Container(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: new Text(
+                    'HELP',
+                    style: new TextStyle(
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          new Icon(
+            Icons.help_outline,
+            color: Colors.grey[500],
+          ),
+        ],
+      ),
+    );
+
 
     return new Container(
       width: double.infinity,
-      padding: new EdgeInsets.all(28.0),
-      decoration: new BoxDecoration(
-        gradient: new LinearGradient(colors: [
-          Colors.purple,
-          Colors.purpleAccent,
-        ]),
-      ),
       child: new Column(
-        children: <Widget>[alucard, welcome, lorem],
+        children: <Widget>[
+          accountSection,
+          notificationSection,
+          refreshSection,
+          displaySection,
+          helpSection,
+        ],
       ),
     );
-
   }
 }
