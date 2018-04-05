@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'notifications_page.dart';
 import 'history_page.dart';
+import 'resolved.dart';
 import 'sample_chart.dart';
 import 'settings_page.dart';
 import 'signin_page.dart';
@@ -20,6 +21,7 @@ class LandingPage extends StatefulWidget {
   final drawerItems =  [
     new DrawerItem("Notifications", Icons.notifications),
     new DrawerItem("History", Icons.library_books),
+    new DrawerItem("Resolved", Icons.check),
     new DrawerItem("Analytics", Icons.insert_chart),
     new DrawerItem("Settings", Icons.settings),
     new DrawerItem("Logout", Icons.exit_to_app),
@@ -39,10 +41,12 @@ class _LandingPageState extends State<LandingPage> {
       case 1:
         return new HistoryPage();
       case 2:
-        return new AnalyticsPage();
+        return new ResolvedPage();
       case 3:
-        return new SettingsPage();
+        return new AnalyticsPage();
       case 4:
+        return new SettingsPage();
+      case 5:
         return new SignInPage();
       default:
         return new Text("Error");
@@ -51,7 +55,12 @@ class _LandingPageState extends State<LandingPage> {
 
   _onSelectItem(int index) {
     print(index);
-    if(index==4){
+    if(index==5){
+      globals.notificationsList = new List();
+      globals.historyList = new List();
+      globals.resolvedList = new List();
+      globals.username = '';
+      globals.password = '';
       Navigator.of(context).pushNamed(SignInPage.routeName);
     }
     else {

@@ -1,37 +1,32 @@
 import 'dart:async';
+import 'dart:core';
 import 'package:http/http.dart' as http;
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:auth_app/globals.dart' as globals;
 
-class HistoryPage extends StatefulWidget {
+
+class ResolvedPage extends StatefulWidget {
   @override
-  _HistoryPageState createState() => new _HistoryPageState();
+  _ResolvedPageState createState() => new _ResolvedPageState();
 }
 
-class _HistoryPageState extends State<HistoryPage> {
-  static String routeName = 'history-page';
+class _ResolvedPageState extends State<ResolvedPage> {
+  static String routeName = 'resolved-page';
 
-  List data = globals.historyList;
+  List data = globals.resolvedList;
   bool isFetching = false;
 
   Future<String> deleteSearch(jsonObj) async {
+    print("DELETE\n");
+    print(jsonObj);
+
     var index = jsonObj['idx'];
 
-    print("DELETE\n");
+    globals.resolvedList.remove(jsonObj);
 
-    globals.resolvedList.add(jsonObj['idx']);
-    globals.historyList.remove(jsonObj);
-
-    var uri = new Uri.https(
-        'admin:monitor!@techbootcamp.aiam-dh.com', '/rest-techsyd3/servicesNS/admin/search/saved/searches/categoryerrors$index/', {'output_mode': 'json'});
-    var client = new http.Client();
-    var request = new http.Request('DELETE', uri);
-    var future = client.send(request).then((response)
-    => response.stream.bytesToString().then((value)
-    => this.postData(jsonObj, index))).catchError((error) => print(error.toString()));
-
+    print("RESOLVED LIST");
+    print(globals.resolvedList);
 
     // this.postData(index);
   }
@@ -49,7 +44,7 @@ class _HistoryPageState extends State<HistoryPage> {
     var request = new http.Request('POST', uri);
     var body = {
       'name': 'categoryerrors$index',
-      'search': '| makeresults | eval idx=$index | eval site_id=${jsonObj["site_id"]} | eval priority=${jsonObj["priority"]} | eval description="${jsonObj["description"]}" | eval count=${jsonObj["count"]} | eval read="true" | eval resolved="true" | fields idx site_id priority description count read resolved'
+      'search': '| makeresults | eval site_id=${jsonObj["site_id"]} | eval priority=${jsonObj["priority"]} | eval description="${jsonObj["description"]}" | eval count=${jsonObj["count"]} | eval read="true" | eval resolved="true" | fields site_id priority description count read resolved'
     };
     request.bodyFields = body;
     var future = client.send(request).then((response) =>
@@ -92,16 +87,6 @@ class _HistoryPageState extends State<HistoryPage> {
       ),
     );
 
-    final highPriorityErrorIcon = new Icon(
-      Icons.error,
-      color: Colors.red,
-    );
-
-    final midPriorityErrorIcon = new Icon(
-      Icons.remove_circle,
-      color: Colors.orange,
-    );
-
     final itemList = new ListView.builder(
         itemCount: data == null ? 0 : data.length,
         itemBuilder: (BuildContext context, int index){
@@ -123,7 +108,7 @@ class _HistoryPageState extends State<HistoryPage> {
             child: new Column(
               children: <Widget> [
                 new ListTile(
-                  leading: (data[index]['priority'] == '9' || data[index]['priority'] == '8') ? highPriorityErrorIcon : midPriorityErrorIcon,
+                  leading: new Icon(Icons.check, color: Colors.green),
                   title: new Text(data[index]['description']),
                   subtitle: new Text(data[index]['site_id']),
                   //                  trailing: new Icon(Icons.watch_later),
@@ -143,4 +128,5 @@ class _HistoryPageState extends State<HistoryPage> {
       body: isFetching ? fetchingIndicator : itemList,
     );
   }
+
 }
