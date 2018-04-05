@@ -9,6 +9,7 @@ class NotificationsPage extends StatefulWidget {
 }
 
 class NotificationsPageState extends State<NotificationsPage> {
+  var swipeDirection;
   static String routeName = 'notifications-page';
 
   List data;
@@ -49,12 +50,38 @@ class NotificationsPageState extends State<NotificationsPage> {
       body: new ListView.builder(
           itemCount: data == null ? 0 : data.length,
           itemBuilder: (BuildContext context, int index){
-            return new ListTile(
+            return new Dismissible(
+              key: new Key(data[index]['processor']),
+              onDismissed: (direction) {
+//                data[index]['processor'].removeAt(index);
+                if(direction==DismissDirection.endToStart) {
+                  print('dismissed to the left');
+                } else {
+                  print('dismissed to the right');
+                }
+              },
+              background:
+              new Container(
+                  padding: const EdgeInsets.all(20.0),
+                  color: Colors.amber,
+                  child: new Text('Acknowledged', textAlign: TextAlign.center, overflow: TextOverflow.ellipsis, style: new TextStyle(fontWeight: FontWeight.bold,fontSize:24.0))
+              ),
+              child: new ListTile(
+                leading: new Icon(Icons.remove_circle),
+                title: new Text(data[index]['processor']),
+                subtitle: new Text(data[index]['count']),
+//                  trailing: new Icon(Icons.watch_later),
+                onTap: () {tileTapped(data[index]);},
+                onLongPress: () {print('LongPressed'); print(index);},
+              ),
+            );
+/*            return new ListTile(
                 leading: new Icon(Icons.ac_unit),
                 title: new Text(data[index]['processor']),
                 subtitle: new Text(data[index]['count']),
-                onTap: () {tileTapped(data[index]);}
-            );
+                trailing: new Icon(Icons.view_headline),
+//                onTap: () {tileTapped(data[index]);}
+            );*/
           }
       ),
     );

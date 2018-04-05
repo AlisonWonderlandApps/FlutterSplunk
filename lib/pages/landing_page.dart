@@ -5,6 +5,7 @@ import 'history_page.dart';
 import 'sample_chart.dart';
 import 'settings_page.dart';
 import 'signin_page.dart';
+import 'package:auth_app/globals.dart' as globals;
 
 class DrawerItem {
   String title;
@@ -13,6 +14,7 @@ class DrawerItem {
 }
 
 class LandingPage extends StatefulWidget {
+  //LandingPage({Key key, this.username, this.password}) : super(key: key);
   static String routeName = 'landing-page';
 
   final drawerItems =  [
@@ -61,6 +63,9 @@ class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     var drawerOptions = [];
+    print("LANDING PAGE");
+    print(globals.username);
+    print(globals.password);
 
     for (var i=0; i< widget.drawerItems.length; i++) {
       var d = widget.drawerItems[i];
