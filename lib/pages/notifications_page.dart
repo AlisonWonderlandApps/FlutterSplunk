@@ -70,8 +70,9 @@ class NotificationsPageState extends State<NotificationsPage> {
                   leading: new Icon(Icons.remove_circle),
                   title: new Text(data[index]['processor']),
                   subtitle: new Text(data[index]['count']),
-                  trailing: new Icon(Icons.watch_later),
-//                onTap: () {tileTapped(data[index]);}
+//                  trailing: new Icon(Icons.watch_later),
+                  onTap: () {tileTapped(data[index]);},
+                  onLongPress: () {print('LongPressed'); print(index);},
                 ),
             );
 /*            return new ListTile(
