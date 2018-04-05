@@ -16,11 +16,11 @@ class LandingPage extends StatefulWidget {
   static String routeName = 'landing-page';
 
   final drawerItems =  [
-    new DrawerItem("notifications", Icons.notifications),
-    new DrawerItem("history", Icons.library_books),
-    new DrawerItem("analytics", Icons.insert_chart),
-    new DrawerItem("settings", Icons.settings),
-    new DrawerItem("logout", Icons.exit_to_app),
+    new DrawerItem("Notifications", Icons.notifications),
+    new DrawerItem("History", Icons.library_books),
+    new DrawerItem("Analytics", Icons.insert_chart),
+    new DrawerItem("Settings", Icons.settings),
+    new DrawerItem("Logout", Icons.exit_to_app),
   ];
 
   @override
@@ -64,10 +64,14 @@ class _LandingPageState extends State<LandingPage> {
 
     for (var i=0; i< widget.drawerItems.length; i++) {
       var d = widget.drawerItems[i];
+      print(d);
       drawerOptions.add(
         new ListTile(
           leading: new Icon(d.icon),
-          title: new Text(d.title),
+          title: new Text(
+            d.title,
+            style: new TextStyle(fontStyle: FontStyle.italic),
+          ),
           selected: i == _selectedDrawerIndex,
           onTap: () => _onSelectItem(i),
         )
@@ -76,12 +80,38 @@ class _LandingPageState extends State<LandingPage> {
 
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text(widget.drawerItems[_selectedDrawerIndex].title),
+        iconTheme: new IconThemeData(color: Colors.white),
+        title: new Text(
+          widget.drawerItems[_selectedDrawerIndex].title,
+          style: new TextStyle(color: Colors.white),
+        ),
+        actions: <Widget>[
+          new Padding(
+            padding: new EdgeInsets.only(right: 20.0),
+            child: new Image.asset(
+              'assets/images/Accenture-logo.png',
+              width: 25.0,
+            ),
+          ),
+        ],
       ),
       drawer: new Drawer(
         child: new Column(
           children: <Widget> [
-            new UserAccountsDrawerHeader(accountName: new Text("Alucard"), accountEmail: null),
+            new DrawerHeader(
+              child: new Hero(
+                tag: 'hero',
+                child: new CircleAvatar(
+                  backgroundColor: Colors.transparent,
+                  radius: 100.0,
+                  child: new Image.asset(
+                    'assets/images/Accenture-logo.png',
+                    width: 100.0,
+                  ),
+                ),
+              ), //Hero
+            ),
+            //new UserAccountsDrawerHeader(accountName: new Text("Alucard"), accountEmail: null),
             new Column(
               children: drawerOptions
             ),

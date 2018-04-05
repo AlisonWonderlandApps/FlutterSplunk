@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'dart:core';
 
-import './home_page.dart';
+import './signup.dart';
 import './landing_page.dart';
 
 class SignInPage extends StatefulWidget {
@@ -11,6 +12,37 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+  String username;
+  String password;
+  bool usernameError = false;
+  bool passError = false;
+
+  _onChangeEmail(e) {
+    setState(() {
+      username = e;
+    });
+    print(username);
+  }
+
+  _onChangePassword(p) {
+    setState(() {
+      password = p;
+    });
+    print(password);
+  }
+
+  _onLoginButtonPressed() {
+    if(username.isEmpty || username == null) {
+      print("OH NOOOO");
+    }
+    if(password.isEmpty || password == null) {
+
+    }
+    print(username);
+    print(password);
+    Navigator.of(context).pushNamed(LandingPage.routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
     final logo = new Hero(
@@ -25,11 +57,12 @@ class _SignInPageState extends State<SignInPage> {
     ); //Hero
 
     final email = new TextField(
-      onChanged: (e) => print(e),
-      keyboardType: TextInputType.emailAddress,
+      onChanged: (e) => _onChangeEmail(e),
+      keyboardType: TextInputType.text,
       autofocus: false,
       decoration: new InputDecoration(
-        hintText: 'Email',
+        hintText: 'Username',
+        errorText: this.usernameError ? "Username error" : null,
         contentPadding: new EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: new OutlineInputBorder(
           borderRadius: new BorderRadius.circular(32.0),
@@ -42,6 +75,7 @@ class _SignInPageState extends State<SignInPage> {
       obscureText: true,
       decoration: new InputDecoration(
         hintText: 'Password',
+        errorText: this.passError ? "Password error": null,
         contentPadding: new EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: new OutlineInputBorder(
           borderRadius: new BorderRadius.circular(32.0),
@@ -59,6 +93,7 @@ class _SignInPageState extends State<SignInPage> {
           minWidth: 200.0,
           height: 42.0,
           onPressed: () {
+            //_onLoginButtonPressed;
             Navigator.of(context).pushNamed(LandingPage.routeName);
           },
           color: Colors.lightBlueAccent,
@@ -80,7 +115,9 @@ class _SignInPageState extends State<SignInPage> {
           'New User? Click here',
           style: new TextStyle(color: Colors.black54)
       ),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.of(context).pushNamed(SignUpPage.routeName);
+      },
     );
 
     return new Scaffold(

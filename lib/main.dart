@@ -3,6 +3,7 @@ import './pages/login.dart';
 import './pages/signin_page.dart';
 import './pages/home_page.dart';
 import './pages/landing_page.dart';
+import './pages/signup.dart';
 import './pages/jsonpull.dart';
 import './pages/testlist.dart';
 import './pages/notifications_page.dart';
@@ -16,8 +17,10 @@ class MyApp extends StatelessWidget {
 
   final routes = <String, WidgetBuilder>{
     SignInPage.routeName: (context) => new SignInPage(),
+    SignUpPage.routeName: (context) => new SignUpPage(),
     HomePage.routeName: (context) => new HomePage(),
     LandingPage.routeName: (context) => new LandingPage(),
+
     //NotificationsPage.routeName: (context) => new NotificationsPage(),
     //AnalyticsPage.routeName: (context) => new AnalyticsPage(),
     //HistoryPage.routeName: (context) => new HistoryPage(),
