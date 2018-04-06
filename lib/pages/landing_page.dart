@@ -116,7 +116,7 @@ class _LandingPageState extends State<LandingPage> {
                   backgroundColor: Colors.transparent,
                   radius: 100.0,
                   child: new Image.asset(
-                    'assets/images/Accenture-logo.png',
+                    'assets/images/RA-logo.png',
                     width: 100.0,
                   ),
                 ),

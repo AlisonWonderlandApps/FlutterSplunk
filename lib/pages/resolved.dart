@@ -16,12 +16,11 @@ class _ResolvedPageState extends State<ResolvedPage> {
 
   List data = globals.resolvedList;
   bool isFetching = false;
+  int dataLength = globals.resolvedList.length;
 
   Future<String> deleteSearch(jsonObj) async {
     print("DELETE\n");
     print(jsonObj);
-
-    var index = jsonObj['idx'];
 
     globals.resolvedList.remove(jsonObj);
 
@@ -31,45 +30,11 @@ class _ResolvedPageState extends State<ResolvedPage> {
     // this.postData(index);
   }
 
-  Future<String> postData(jsonObj, index) async {
-    print("POST\n");
-    print(jsonObj["site_id"]);
-    print(jsonObj["description"]);
-
-    var uri = new Uri.https(
-        'admin:monitor!@techbootcamp.aiam-dh.com',
-        '/rest-techsyd3/servicesNS/admin/search/saved/searches/',
-        {'output_mode': 'json'});
-    var client = new http.Client();
-    var request = new http.Request('POST', uri);
-    var body = {
-      'name': 'categoryerrors$index',
-      'search': '| makeresults | eval site_id=${jsonObj["site_id"]} | eval priority=${jsonObj["priority"]} | eval description="${jsonObj["description"]}" | eval count=${jsonObj["count"]} | eval read="true" | eval resolved="true" | fields site_id priority description count read resolved'
-    };
-    request.bodyFields = body;
-    var future = client.send(request).then((response) =>
-        response.stream.bytesToString().then((value) =>
-            this.postPermissions(index))).catchError((error) =>
-        print(error.toString()));
-
-  }
-
-  Future<String> postPermissions(index) async {
-    print("PERMISSIONS\n");
-
-    var uri = new Uri.https(
-        'admin:monitor!@techbootcamp.aiam-dh.com', '/rest-techsyd3/servicesNS/admin/search/saved/searches/categoryerrors$index/acl/', {'output_mode': 'json'});
-    var client = new http.Client();
-    var request = new http.Request('POST', uri);
-    var body = {'app': 'search', 'owner': 'admin', 'sharing': 'app', 'perms.read': '*'};
-    request.bodyFields = body;
-    var future = client.send(request).then((response)
-    => response.stream.bytesToString().then((value)
-    => print(value.toString()))).catchError((error) => print(error.toString()));
-  }
-
   @override
   Widget build(BuildContext context) {
+
+    print("RESOLVED");
+    print(globals.resolvedList);
 
     final fetchingIndicator = new Center(
       child: new Column(
@@ -84,6 +49,13 @@ class _ResolvedPageState extends State<ResolvedPage> {
             style: new TextStyle(fontStyle: FontStyle.italic),
           ),
         ],
+      ),
+    );
+
+    final noData = new Center(
+      child: new Text(
+        "No Resolved Items to show",
+        style: new TextStyle(fontSize: 18.0),
       ),
     );
 
@@ -125,7 +97,7 @@ class _ResolvedPageState extends State<ResolvedPage> {
     );
 
     return new Scaffold(
-      body: isFetching ? fetchingIndicator : itemList,
+      body: dataLength==0 ? noData : itemList,
     );
   }
 

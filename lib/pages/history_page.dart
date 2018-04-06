@@ -15,13 +15,14 @@ class _HistoryPageState extends State<HistoryPage> {
 
   List data = globals.historyList;
   bool isFetching = false;
+  int dataLength = globals.historyList.length;
 
   Future<String> deleteSearch(jsonObj) async {
     var index = jsonObj['idx'];
 
     print("DELETE\n");
 
-    globals.resolvedList.add(jsonObj['idx']);
+    globals.resolvedList.add(jsonObj);
     globals.historyList.remove(jsonObj);
 
     var uri = new Uri.https(
@@ -102,6 +103,13 @@ class _HistoryPageState extends State<HistoryPage> {
       color: Colors.orange,
     );
 
+    final noData = new Center(
+      child: new Text(
+        "No History Items to show",
+        style: new TextStyle(fontSize: 18.0),
+      ),
+    );
+
     final itemList = new ListView.builder(
         itemCount: data == null ? 0 : data.length,
         itemBuilder: (BuildContext context, int index){
@@ -140,7 +148,7 @@ class _HistoryPageState extends State<HistoryPage> {
     );
 
     return new Scaffold(
-      body: isFetching ? fetchingIndicator : itemList,
+      body: dataLength==0 ? noData : itemList,
     );
   }
 }
