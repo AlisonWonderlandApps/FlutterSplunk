@@ -120,9 +120,9 @@ class _HistoryPageState extends State<HistoryPage> {
             },
             background: new Container(
               padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-              color: Colors.green,
+              color: Colors.purple,
               child: new Text(
-                  'Acknowledged',
+                  'Resolved',
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize:24.0)

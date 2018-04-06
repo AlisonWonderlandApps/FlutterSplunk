@@ -10,6 +10,7 @@ import './pages/notifications_page.dart';
 import './pages/analytics_page.dart';
 import './pages/history_page.dart';
 import './pages/settings_page.dart';
+import './pages/analytics_selector.dart';
 
 void main() => runApp(new MyApp());
 

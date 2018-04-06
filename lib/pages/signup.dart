@@ -4,6 +4,8 @@ import './signin_page.dart';
 import './landing_page.dart';
 
 class SignUpPage extends StatefulWidget {
+  const SignUpPage({ Key key }) : super(key: key);
+
   static String routeName = 'signup-page';
 
   @override
@@ -11,6 +13,8 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     final logo = new Hero(
@@ -72,10 +76,12 @@ class _SignUpPageState extends State<SignUpPage> {
           minWidth: 200.0,
           height: 42.0,
           onPressed: () {
-            Navigator.of(context).pushNamed(LandingPage.routeName);
+            Scaffold.of(context).showSnackBar(new SnackBar(
+            content: new Text('Sorry Functionality not yet available.')
+          ));
           },
           color: Colors.lightBlueAccent,
-          child: new Text("Log In", style: new TextStyle(color: Colors.white)),
+          child: new Text("Sign Up", style: new TextStyle(color: Colors.white)),
         ),
       ),
     );
@@ -91,6 +97,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
 
     return new Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.white,
       body: new Center(
         child: new ListView(
@@ -106,7 +113,25 @@ class _SignUpPageState extends State<SignUpPage> {
             new SizedBox(height: 8.0),
             password,
             new SizedBox(height: 16.0),
-            loginButton,
+            new Padding(
+              padding: new EdgeInsets.symmetric(vertical: 16.0),
+              child: new Material(
+                borderRadius: new BorderRadius.circular(30.0),
+                shadowColor: Colors.lightBlueAccent[100],
+                elevation: 5.0,
+                child: new MaterialButton(
+                  minWidth: 200.0,
+                  height: 42.0,
+                  onPressed: () {
+                    _scaffoldKey.currentState.showSnackBar(new SnackBar(
+                        content: new Text('Sorry Functionality not yet available.')
+                    ));
+                  },
+                  color: Colors.lightBlueAccent,
+                  child: new Text("Sign Up", style: new TextStyle(color: Colors.white)),
+                ),
+              ),
+            ),
             newUser,
             new Padding(padding: new EdgeInsets.only(bottom: 80.0),),
           ],

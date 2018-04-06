@@ -6,6 +6,7 @@ import 'resolved.dart';
 import 'sample_chart.dart';
 import 'settings_page.dart';
 import 'signin_page.dart';
+import 'analytics_selector.dart';
 import 'package:auth_app/globals.dart' as globals;
 
 class DrawerItem {
@@ -43,7 +44,7 @@ class _LandingPageState extends State<LandingPage> {
       case 2:
         return new ResolvedPage();
       case 3:
-        return new AnalyticsPage();
+        return new PageSelectorDemo();
       case 4:
         return new SettingsPage();
       case 5:
