@@ -153,6 +153,17 @@ class SettingsPage extends StatelessWidget {
       ),
     );
 
+    final logo = new Hero(
+      tag: 'hero',
+      child: new CircleAvatar(
+        backgroundColor: Colors.transparent,
+        radius: 150.0,
+        child: new Image.asset(
+            'assets/images/RA-logo.png'
+        ),
+      ),
+    ); //Hero
+
 
     return new Container(
       width: double.infinity,
@@ -163,6 +174,7 @@ class SettingsPage extends StatelessWidget {
           refreshSection,
           displaySection,
           helpSection,
+          logo
         ],
       ),
     );
